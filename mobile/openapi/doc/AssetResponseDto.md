@@ -18,13 +18,16 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **isArchived** | **bool** |  | 
 **isFavorite** | **bool** |  | 
+**largeCopies** | **num** |  | 
 **livePhotoVideoId** | **String** |  | [optional] 
+**mediumCopies** | **num** |  | 
 **originalFileName** | **String** |  | 
 **originalPath** | **String** |  | 
 **owner** | [**UserResponseDto**](UserResponseDto.md) |  | [optional] 
 **ownerId** | **String** |  | 
 **people** | [**List<PersonResponseDto>**](PersonResponseDto.md) |  | [optional] [default to const []]
 **resized** | **bool** |  | 
+**smallCopies** | **num** |  | 
 **smartInfo** | [**SmartInfoResponseDto**](SmartInfoResponseDto.md) |  | [optional] 
 **tags** | [**List<TagResponseDto>**](TagResponseDto.md) |  | [optional] [default to const []]
 **thumbhash** | **String** | base64 encoded thumbhash | 

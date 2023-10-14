@@ -120,6 +120,15 @@ export class AssetEntity {
 
   @OneToMany(() => AssetFaceEntity, (assetFace) => assetFace.asset)
   faces!: AssetFaceEntity[];
+
+  @Column()
+  smallCopies!: number;
+
+  @Column()
+  mediumCopies!: number;
+
+  @Column()
+  largeCopies!: number;
 }
 
 export enum AssetType {

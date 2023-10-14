@@ -2,6 +2,7 @@
   import { afterNavigate, goto } from '$app/navigation';
   import EditDescriptionModal from '$lib/components/album-page/edit-description-modal.svelte';
   import ShareInfoModal from '$lib/components/album-page/share-info-modal.svelte';
+  import PrintoutsInfoModal from '$lib/components/album-page/printouts-info-modal.svelte';
   import UserSelectionModal from '$lib/components/album-page/user-selection-modal.svelte';
   import Button from '$lib/components/elements/buttons/button.svelte';
   import CircleIconButton from '$lib/components/elements/buttons/circle-icon-button.svelte';
@@ -36,6 +37,7 @@
   import { handleError } from '$lib/utils/handle-error';
   import { TimeBucketSize, UserResponseDto, api } from '@api';
   import ArrowLeft from 'svelte-material-icons/ArrowLeft.svelte';
+  import CloudPrintOutline from 'svelte-material-icons/CloudPrintOutline.svelte';
   import DeleteOutline from 'svelte-material-icons/DeleteOutline.svelte';
   import DotsVertical from 'svelte-material-icons/DotsVertical.svelte';
   import FileImagePlusOutline from 'svelte-material-icons/FileImagePlusOutline.svelte';
@@ -58,6 +60,7 @@
     SELECT_THUMBNAIL = 'select-thumbnail',
     SELECT_ASSETS = 'select-assets',
     ALBUM_OPTIONS = 'album-options',
+    SHOW_PRINTOUTS = 'show-printouts',
     VIEW_USERS = 'view-users',
     VIEW = 'view',
   }
@@ -326,6 +329,11 @@
               on:click={() => (viewMode = ViewMode.CONFIRM_DELETE)}
               logo={DeleteOutline}
             />
+            <CircleIconButton
+              title="Show printouts"
+              on:click={() => (viewMode = ViewMode.SHOW_PRINTOUTS)}
+              logo={CloudPrintOutline}
+            />
           {/if}
 
           {#if album.assetCount > 0}
@@ -519,6 +527,13 @@
     on:close={() => (viewMode = ViewMode.VIEW)}
     {album}
     on:remove={({ detail: userId }) => handleRemoveUser(userId)}
+  />
+{/if}
+
+{#if viewMode === ViewMode.SHOW_PRINTOUTS}
+  <PrintoutsInfoModal
+    on:close={() => (viewMode = ViewMode.VIEW)}
+    {album}
   />
 {/if}
 

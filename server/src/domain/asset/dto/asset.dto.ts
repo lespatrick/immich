@@ -1,4 +1,4 @@
-import { IsBoolean, IsString } from 'class-validator';
+import { IsBoolean, IsString, IsNumber } from 'class-validator';
 import { Optional } from '../../domain.util';
 import { BulkIdsDto } from '../response-dto';
 
@@ -24,4 +24,30 @@ export class UpdateAssetDto {
   @Optional()
   @IsString()
   description?: string;
+
+  @Optional()
+  @IsNumber()
+  smallCopies?: number;
+
+  @Optional()
+  @IsNumber()
+  mediumCopies?: number;
+
+  @Optional()
+  @IsNumber()
+  largeCopies?: number;
+}
+
+export class UpdateAssetCopiesDto {
+  @Optional()
+  @IsNumber()
+  smallCopies?: number;
+
+  @Optional()
+  @IsNumber()
+  mediumCopies?: number;
+
+  @Optional()
+  @IsNumber()
+  largeCopies?: number;
 }

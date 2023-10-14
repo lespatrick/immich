@@ -31,6 +31,21 @@ void main() {
       // TODO
     });
 
+    // num largeCopies
+    test('to test the property `largeCopies`', () async {
+      // TODO
+    });
+
+    // num mediumCopies
+    test('to test the property `mediumCopies`', () async {
+      // TODO
+    });
+
+    // num smallCopies
+    test('to test the property `smallCopies`', () async {
+      // TODO
+    });
+
 
   });
 

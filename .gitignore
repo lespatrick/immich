@@ -4,9 +4,12 @@
 .idea
 
 docker/upload
+docker/library
 uploads
 coverage
 
 mobile/gradle.properties
 mobile/openapi/pubspec.lock
 mobile/*.jks
+
+node_modules

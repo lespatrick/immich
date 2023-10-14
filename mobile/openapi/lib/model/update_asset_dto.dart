@@ -16,6 +16,9 @@ class UpdateAssetDto {
     this.description,
     this.isArchived,
     this.isFavorite,
+    this.largeCopies,
+    this.mediumCopies,
+    this.smallCopies,
   });
 
   ///
@@ -42,21 +45,51 @@ class UpdateAssetDto {
   ///
   bool? isFavorite;
 
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  num? largeCopies;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  num? mediumCopies;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  num? smallCopies;
+
   @override
   bool operator ==(Object other) => identical(this, other) || other is UpdateAssetDto &&
      other.description == description &&
      other.isArchived == isArchived &&
-     other.isFavorite == isFavorite;
+     other.isFavorite == isFavorite &&
+     other.largeCopies == largeCopies &&
+     other.mediumCopies == mediumCopies &&
+     other.smallCopies == smallCopies;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (description == null ? 0 : description!.hashCode) +
     (isArchived == null ? 0 : isArchived!.hashCode) +
-    (isFavorite == null ? 0 : isFavorite!.hashCode);
+    (isFavorite == null ? 0 : isFavorite!.hashCode) +
+    (largeCopies == null ? 0 : largeCopies!.hashCode) +
+    (mediumCopies == null ? 0 : mediumCopies!.hashCode) +
+    (smallCopies == null ? 0 : smallCopies!.hashCode);
 
   @override
-  String toString() => 'UpdateAssetDto[description=$description, isArchived=$isArchived, isFavorite=$isFavorite]';
+  String toString() => 'UpdateAssetDto[description=$description, isArchived=$isArchived, isFavorite=$isFavorite, largeCopies=$largeCopies, mediumCopies=$mediumCopies, smallCopies=$smallCopies]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -75,6 +108,21 @@ class UpdateAssetDto {
     } else {
     //  json[r'isFavorite'] = null;
     }
+    if (this.largeCopies != null) {
+      json[r'largeCopies'] = this.largeCopies;
+    } else {
+    //  json[r'largeCopies'] = null;
+    }
+    if (this.mediumCopies != null) {
+      json[r'mediumCopies'] = this.mediumCopies;
+    } else {
+    //  json[r'mediumCopies'] = null;
+    }
+    if (this.smallCopies != null) {
+      json[r'smallCopies'] = this.smallCopies;
+    } else {
+    //  json[r'smallCopies'] = null;
+    }
     return json;
   }
 
@@ -89,6 +137,15 @@ class UpdateAssetDto {
         description: mapValueOfType<String>(json, r'description'),
         isArchived: mapValueOfType<bool>(json, r'isArchived'),
         isFavorite: mapValueOfType<bool>(json, r'isFavorite'),
+        largeCopies: json[r'largeCopies'] == null
+            ? null
+            : num.parse(json[r'largeCopies'].toString()),
+        mediumCopies: json[r'mediumCopies'] == null
+            ? null
+            : num.parse(json[r'mediumCopies'].toString()),
+        smallCopies: json[r'smallCopies'] == null
+            ? null
+            : num.parse(json[r'smallCopies'].toString()),
       );
     }
     return null;

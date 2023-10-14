@@ -6,6 +6,7 @@ export enum Permission {
   // ASSET_CREATE = 'asset.create',
   ASSET_READ = 'asset.read',
   ASSET_UPDATE = 'asset.update',
+  ASSET_UPDATE_COPIES = 'asset.updateCopies',
   ASSET_DELETE = 'asset.delete',
   ASSET_SHARE = 'asset.share',
   ASSET_VIEW = 'asset.view',
@@ -59,6 +60,9 @@ export class AccessCore {
   async hasPermission(authUser: AuthUserDto, permission: Permission, ids: string[] | string) {
     ids = Array.isArray(ids) ? ids : [ids];
 
+    if (!authUser) {
+      return false;
+    }
     const isSharedLink = authUser.isPublicUser ?? false;
 
     for (const id of ids) {
@@ -114,6 +118,12 @@ export class AccessCore {
         );
       case Permission.ASSET_UPDATE:
         return this.repository.asset.hasOwnerAccess(authUser.id, id);
+      case Permission.ASSET_UPDATE_COPIES:
+        return (
+          (await this.repository.asset.hasOwnerAccess(authUser.id, id)) ||
+          (await this.repository.asset.hasAlbumAccess(authUser.id, id)) ||
+          (await this.repository.asset.hasPartnerAccess(authUser.id, id))
+        );
 
       case Permission.ASSET_DELETE:
         return this.repository.asset.hasOwnerAccess(authUser.id, id);

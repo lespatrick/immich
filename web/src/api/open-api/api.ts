@@ -629,10 +629,22 @@ export interface AssetResponseDto {
     'isFavorite': boolean;
     /**
      * 
+     * @type {number}
+     * @memberof AssetResponseDto
+     */
+    'largeCopies': number;
+    /**
+     * 
      * @type {string}
      * @memberof AssetResponseDto
      */
     'livePhotoVideoId'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof AssetResponseDto
+     */
+    'mediumCopies': number;
     /**
      * 
      * @type {string}
@@ -669,6 +681,12 @@ export interface AssetResponseDto {
      * @memberof AssetResponseDto
      */
     'resized': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof AssetResponseDto
+     */
+    'smallCopies': number;
     /**
      * 
      * @type {SmartInfoResponseDto}
@@ -3464,6 +3482,31 @@ export interface UpdateAlbumDto {
 /**
  * 
  * @export
+ * @interface UpdateAssetCopiesDto
+ */
+export interface UpdateAssetCopiesDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateAssetCopiesDto
+     */
+    'largeCopies'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateAssetCopiesDto
+     */
+    'mediumCopies'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateAssetCopiesDto
+     */
+    'smallCopies'?: number;
+}
+/**
+ * 
+ * @export
  * @interface UpdateAssetDto
  */
 export interface UpdateAssetDto {
@@ -3485,6 +3528,24 @@ export interface UpdateAssetDto {
      * @memberof UpdateAssetDto
      */
     'isFavorite'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateAssetDto
+     */
+    'largeCopies'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateAssetDto
+     */
+    'mediumCopies'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateAssetDto
+     */
+    'smallCopies'?: number;
 }
 /**
  * 
@@ -6454,6 +6515,59 @@ export const AssetApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {string} id 
+         * @param {UpdateAssetCopiesDto} updateAssetCopiesDto 
+         * @param {string} [key] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCopies: async (id: string, updateAssetCopiesDto: UpdateAssetCopiesDto, key?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateCopies', 'id', id)
+            // verify required parameter 'updateAssetCopiesDto' is not null or undefined
+            assertParamExists('updateCopies', 'updateAssetCopiesDto', updateAssetCopiesDto)
+            const localVarPath = `/asset/{id}/copies`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication cookie required
+
+            // authentication api_key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (key !== undefined) {
+                localVarQueryParameter['key'] = key;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateAssetCopiesDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {File} assetData 
          * @param {string} deviceAssetId 
          * @param {string} deviceId 
@@ -6862,6 +6976,18 @@ export const AssetApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} id 
+         * @param {UpdateAssetCopiesDto} updateAssetCopiesDto 
+         * @param {string} [key] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateCopies(id: string, updateAssetCopiesDto: UpdateAssetCopiesDto, key?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AssetResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCopies(id, updateAssetCopiesDto, key, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {File} assetData 
          * @param {string} deviceAssetId 
          * @param {string} deviceId 
@@ -7113,6 +7239,15 @@ export const AssetApiFactory = function (configuration?: Configuration, basePath
          */
         updateAssets(requestParameters: AssetApiUpdateAssetsRequest, options?: AxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.updateAssets(requestParameters.assetBulkUpdateDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {AssetApiUpdateCopiesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCopies(requestParameters: AssetApiUpdateCopiesRequest, options?: AxiosRequestConfig): AxiosPromise<AssetResponseDto> {
+            return localVarFp.updateCopies(requestParameters.id, requestParameters.updateAssetCopiesDto, requestParameters.key, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7659,6 +7794,34 @@ export interface AssetApiUpdateAssetsRequest {
 }
 
 /**
+ * Request parameters for updateCopies operation in AssetApi.
+ * @export
+ * @interface AssetApiUpdateCopiesRequest
+ */
+export interface AssetApiUpdateCopiesRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof AssetApiUpdateCopies
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {UpdateAssetCopiesDto}
+     * @memberof AssetApiUpdateCopies
+     */
+    readonly updateAssetCopiesDto: UpdateAssetCopiesDto
+
+    /**
+     * 
+     * @type {string}
+     * @memberof AssetApiUpdateCopies
+     */
+    readonly key?: string
+}
+
+/**
  * Request parameters for uploadFile operation in AssetApi.
  * @export
  * @interface AssetApiUploadFileRequest
@@ -8033,6 +8196,17 @@ export class AssetApi extends BaseAPI {
      */
     public updateAssets(requestParameters: AssetApiUpdateAssetsRequest, options?: AxiosRequestConfig) {
         return AssetApiFp(this.configuration).updateAssets(requestParameters.assetBulkUpdateDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {AssetApiUpdateCopiesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AssetApi
+     */
+    public updateCopies(requestParameters: AssetApiUpdateCopiesRequest, options?: AxiosRequestConfig) {
+        return AssetApiFp(this.configuration).updateCopies(requestParameters.id, requestParameters.updateAssetCopiesDto, requestParameters.key, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

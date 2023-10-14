@@ -160,6 +160,7 @@ part 'model/tone_mapping.dart';
 part 'model/transcode_hw_accel.dart';
 part 'model/transcode_policy.dart';
 part 'model/update_album_dto.dart';
+part 'model/update_asset_copies_dto.dart';
 part 'model/update_asset_dto.dart';
 part 'model/update_tag_dto.dart';
 part 'model/update_user_dto.dart';

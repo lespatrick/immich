@@ -23,13 +23,16 @@ class AssetResponseDto {
     required this.id,
     required this.isArchived,
     required this.isFavorite,
+    required this.largeCopies,
     this.livePhotoVideoId,
+    required this.mediumCopies,
     required this.originalFileName,
     required this.originalPath,
     this.owner,
     required this.ownerId,
     this.people = const [],
     required this.resized,
+    required this.smallCopies,
     this.smartInfo,
     this.tags = const [],
     required this.thumbhash,
@@ -64,7 +67,11 @@ class AssetResponseDto {
 
   bool isFavorite;
 
+  num largeCopies;
+
   String? livePhotoVideoId;
+
+  num mediumCopies;
 
   String originalFileName;
 
@@ -83,6 +90,8 @@ class AssetResponseDto {
   List<PersonResponseDto> people;
 
   bool resized;
+
+  num smallCopies;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -113,13 +122,16 @@ class AssetResponseDto {
      other.id == id &&
      other.isArchived == isArchived &&
      other.isFavorite == isFavorite &&
+     other.largeCopies == largeCopies &&
      other.livePhotoVideoId == livePhotoVideoId &&
+     other.mediumCopies == mediumCopies &&
      other.originalFileName == originalFileName &&
      other.originalPath == originalPath &&
      other.owner == owner &&
      other.ownerId == ownerId &&
      other.people == people &&
      other.resized == resized &&
+     other.smallCopies == smallCopies &&
      other.smartInfo == smartInfo &&
      other.tags == tags &&
      other.thumbhash == thumbhash &&
@@ -139,13 +151,16 @@ class AssetResponseDto {
     (id.hashCode) +
     (isArchived.hashCode) +
     (isFavorite.hashCode) +
+    (largeCopies.hashCode) +
     (livePhotoVideoId == null ? 0 : livePhotoVideoId!.hashCode) +
+    (mediumCopies.hashCode) +
     (originalFileName.hashCode) +
     (originalPath.hashCode) +
     (owner == null ? 0 : owner!.hashCode) +
     (ownerId.hashCode) +
     (people.hashCode) +
     (resized.hashCode) +
+    (smallCopies.hashCode) +
     (smartInfo == null ? 0 : smartInfo!.hashCode) +
     (tags.hashCode) +
     (thumbhash == null ? 0 : thumbhash!.hashCode) +
@@ -153,7 +168,7 @@ class AssetResponseDto {
     (updatedAt.hashCode);
 
   @override
-  String toString() => 'AssetResponseDto[checksum=$checksum, deviceAssetId=$deviceAssetId, deviceId=$deviceId, duration=$duration, exifInfo=$exifInfo, fileCreatedAt=$fileCreatedAt, fileModifiedAt=$fileModifiedAt, id=$id, isArchived=$isArchived, isFavorite=$isFavorite, livePhotoVideoId=$livePhotoVideoId, originalFileName=$originalFileName, originalPath=$originalPath, owner=$owner, ownerId=$ownerId, people=$people, resized=$resized, smartInfo=$smartInfo, tags=$tags, thumbhash=$thumbhash, type=$type, updatedAt=$updatedAt]';
+  String toString() => 'AssetResponseDto[checksum=$checksum, deviceAssetId=$deviceAssetId, deviceId=$deviceId, duration=$duration, exifInfo=$exifInfo, fileCreatedAt=$fileCreatedAt, fileModifiedAt=$fileModifiedAt, id=$id, isArchived=$isArchived, isFavorite=$isFavorite, largeCopies=$largeCopies, livePhotoVideoId=$livePhotoVideoId, mediumCopies=$mediumCopies, originalFileName=$originalFileName, originalPath=$originalPath, owner=$owner, ownerId=$ownerId, people=$people, resized=$resized, smallCopies=$smallCopies, smartInfo=$smartInfo, tags=$tags, thumbhash=$thumbhash, type=$type, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -171,11 +186,13 @@ class AssetResponseDto {
       json[r'id'] = this.id;
       json[r'isArchived'] = this.isArchived;
       json[r'isFavorite'] = this.isFavorite;
+      json[r'largeCopies'] = this.largeCopies;
     if (this.livePhotoVideoId != null) {
       json[r'livePhotoVideoId'] = this.livePhotoVideoId;
     } else {
     //  json[r'livePhotoVideoId'] = null;
     }
+      json[r'mediumCopies'] = this.mediumCopies;
       json[r'originalFileName'] = this.originalFileName;
       json[r'originalPath'] = this.originalPath;
     if (this.owner != null) {
@@ -186,6 +203,7 @@ class AssetResponseDto {
       json[r'ownerId'] = this.ownerId;
       json[r'people'] = this.people;
       json[r'resized'] = this.resized;
+      json[r'smallCopies'] = this.smallCopies;
     if (this.smartInfo != null) {
       json[r'smartInfo'] = this.smartInfo;
     } else {
@@ -220,13 +238,22 @@ class AssetResponseDto {
         id: mapValueOfType<String>(json, r'id')!,
         isArchived: mapValueOfType<bool>(json, r'isArchived')!,
         isFavorite: mapValueOfType<bool>(json, r'isFavorite')!,
+        largeCopies: json[r'largeCopies'] == null
+            ? null
+            : num.parse(json[r'largeCopies'].toString()),
         livePhotoVideoId: mapValueOfType<String>(json, r'livePhotoVideoId'),
+        mediumCopies: json[r'mediumCopies'] == null
+            ? null
+            : num.parse(json[r'mediumCopies'].toString()),
         originalFileName: mapValueOfType<String>(json, r'originalFileName')!,
         originalPath: mapValueOfType<String>(json, r'originalPath')!,
         owner: UserResponseDto.fromJson(json[r'owner']),
         ownerId: mapValueOfType<String>(json, r'ownerId')!,
         people: PersonResponseDto.listFromJson(json[r'people']),
         resized: mapValueOfType<bool>(json, r'resized')!,
+        smallCopies: json[r'smallCopies'] == null
+            ? null
+            : num.parse(json[r'smallCopies'].toString()),
         smartInfo: SmartInfoResponseDto.fromJson(json[r'smartInfo']),
         tags: TagResponseDto.listFromJson(json[r'tags']),
         thumbhash: mapValueOfType<String>(json, r'thumbhash'),
@@ -288,10 +315,13 @@ class AssetResponseDto {
     'id',
     'isArchived',
     'isFavorite',
+    'largeCopies',
+    'mediumCopies',
     'originalFileName',
     'originalPath',
     'ownerId',
     'resized',
+    'smallCopies',
     'thumbhash',
     'type',
     'updatedAt',

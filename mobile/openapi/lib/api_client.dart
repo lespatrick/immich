@@ -413,6 +413,8 @@ class ApiClient {
           return TranscodePolicyTypeTransformer().decode(value);
         case 'UpdateAlbumDto':
           return UpdateAlbumDto.fromJson(value);
+        case 'UpdateAssetCopiesDto':
+          return UpdateAssetCopiesDto.fromJson(value);
         case 'UpdateAssetDto':
           return UpdateAssetDto.fromJson(value);
         case 'UpdateTagDto':

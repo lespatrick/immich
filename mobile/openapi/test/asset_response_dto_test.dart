@@ -67,8 +67,18 @@ void main() {
       // TODO
     });
 
+    // num largeCopies
+    test('to test the property `largeCopies`', () async {
+      // TODO
+    });
+
     // String livePhotoVideoId
     test('to test the property `livePhotoVideoId`', () async {
+      // TODO
+    });
+
+    // num mediumCopies
+    test('to test the property `mediumCopies`', () async {
       // TODO
     });
 
@@ -99,6 +109,11 @@ void main() {
 
     // bool resized
     test('to test the property `resized`', () async {
+      // TODO
+    });
+
+    // num smallCopies
+    test('to test the property `smallCopies`', () async {
       // TODO
     });
 

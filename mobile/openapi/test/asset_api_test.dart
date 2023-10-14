@@ -154,6 +154,11 @@ void main() {
       // TODO
     });
 
+    //Future<AssetResponseDto> updateCopies(String id, UpdateAssetCopiesDto updateAssetCopiesDto, { String key }) async
+    test('test updateCopies', () async {
+      // TODO
+    });
+
     //Future<AssetFileUploadResponseDto> uploadFile(MultipartFile assetData, String deviceAssetId, String deviceId, DateTime fileCreatedAt, DateTime fileModifiedAt, bool isFavorite, { String key, String duration, bool isArchived, bool isReadOnly, bool isVisible, MultipartFile livePhotoData, MultipartFile sidecarData }) async
     test('test uploadFile', () async {
       // TODO

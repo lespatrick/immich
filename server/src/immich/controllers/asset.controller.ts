@@ -17,6 +17,7 @@ import {
   TimeBucketDto,
   TimeBucketResponseDto,
   UpdateAssetDto as UpdateDto,
+  UpdateAssetCopiesDto
 } from '@app/domain';
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Query, StreamableFile } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -99,5 +100,15 @@ export class AssetController {
     @Body() dto: UpdateDto,
   ): Promise<AssetResponseDto> {
     return this.service.update(authUser, id, dto);
+  }
+
+  @SharedLinkRoute()
+  @Put(':id/copies')
+  updateCopies(
+    @AuthUser() authUser: AuthUserDto,
+    @Param() { id }: UUIDParamDto,
+    @Body() dto: UpdateAssetCopiesDto,
+  ): Promise<AssetResponseDto> {
+    return this.service.updateCopies(authUser, id, dto);
   }
 }
