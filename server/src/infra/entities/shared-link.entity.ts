@@ -58,6 +58,9 @@ export class SharedLinkEntity {
 
   @Column({ type: 'varchar', nullable: true })
   albumId!: string | null;
+
+  @Column({ default: '', select: false })
+  password?: string;
 }
 
 export enum SharedLinkType {

@@ -35,6 +35,10 @@ export class SharedLinkCreateDto {
   @Optional()
   @IsBoolean()
   showExif?: boolean = true;
+
+  @Optional()
+  @IsString()
+  password?: string = '';
 }
 
 export class SharedLinkEditDto {

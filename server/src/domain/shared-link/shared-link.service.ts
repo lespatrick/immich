@@ -1,5 +1,5 @@
 import { AssetEntity, SharedLinkEntity, SharedLinkType } from '@app/infra/entities';
-import { BadRequestException, ForbiddenException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Inject, Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
 import { AccessCore, IAccessRepository, Permission } from '../access';
 import { AssetIdErrorReason, AssetIdsDto, AssetIdsResponseDto } from '../asset';
 import { AuthUserDto } from '../auth';
@@ -7,6 +7,8 @@ import { ICryptoRepository } from '../crypto';
 import { SharedLinkResponseDto, mapSharedLink, mapSharedLinkWithNoExif } from './shared-link-response.dto';
 import { SharedLinkCreateDto, SharedLinkEditDto } from './shared-link.dto';
 import { ISharedLinkRepository } from './shared-link.repository';
+
+const SALT_ROUNDS = 10;
 
 @Injectable()
 export class SharedLinkService {
@@ -60,20 +62,30 @@ export class SharedLinkService {
         break;
     }
 
-    const sharedLink = await this.repository.create({
-      key: this.cryptoRepository.randomBytes(50),
-      userId: authUser.id,
-      type: dto.type,
-      albumId: dto.albumId || null,
-      assets: (dto.assetIds || []).map((id) => ({ id }) as AssetEntity),
-      description: dto.description || null,
-      expiresAt: dto.expiresAt || null,
-      allowUpload: dto.allowUpload ?? true,
-      allowDownload: dto.allowDownload ?? true,
-      showExif: dto.showExif ?? true,
-    });
-
-    return this.map(sharedLink, { withExif: true });
+    try {
+      const payload: Partial<SharedLinkCreateDto> = { ...dto };
+      if (payload.password) {
+        payload.password = await this.cryptoRepository.hashBcrypt(payload.password, SALT_ROUNDS);
+      }
+      const sharedLink = await this.repository.create({
+        key: this.cryptoRepository.randomBytes(50),
+        userId: authUser.id,
+        type: payload.type,
+        albumId: payload.albumId || null,
+        assets: (payload.assetIds || []).map((id) => ({ id }) as AssetEntity),
+        description: payload.description || null,
+        expiresAt: payload.expiresAt || null,
+        allowUpload: payload.allowUpload ?? true,
+        allowDownload: payload.allowDownload ?? true,
+        showExif: payload.showExif ?? true,
+        password: payload.password ?? ''
+      });
+  
+      return this.map(sharedLink, { withExif: true });
+    } catch (e) {
+      Logger.error(e, 'Create new shared link');
+      throw new InternalServerErrorException('Failed to register new shared link');
+    }
   }
 
   async update(authUser: AuthUserDto, id: string, dto: SharedLinkEditDto) {
