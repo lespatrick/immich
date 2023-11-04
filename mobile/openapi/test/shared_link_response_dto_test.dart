@@ -61,6 +61,11 @@ void main() {
       // TODO
     });
 
+    // bool passwordProtected
+    test('to test the property `passwordProtected`', () async {
+      // TODO
+    });
+
     // bool showExif
     test('to test the property `showExif`', () async {
       // TODO

@@ -46,6 +46,11 @@ void main() {
       // TODO
     });
 
+    // String password (default value: '')
+    test('to test the property `password`', () async {
+      // TODO
+    });
+
     // bool showExif (default value: true)
     test('to test the property `showExif`', () async {
       // TODO

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **expiresAt** | [**DateTime**](DateTime.md) |  | 
 **id** | **String** |  | 
 **key** | **String** |  | 
+**passwordProtected** | **bool** |  | 
 **showExif** | **bool** |  | 
 **type** | [**SharedLinkType**](SharedLinkType.md) |  | 
 **userId** | **String** |  | 

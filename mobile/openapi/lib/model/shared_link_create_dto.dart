@@ -19,6 +19,7 @@ class SharedLinkCreateDto {
     this.assetIds = const [],
     this.description,
     this.expiresAt,
+    this.password = '',
     this.showExif = true,
     required this.type,
   });
@@ -47,6 +48,8 @@ class SharedLinkCreateDto {
 
   DateTime? expiresAt;
 
+  String password;
+
   bool showExif;
 
   SharedLinkType type;
@@ -59,6 +62,7 @@ class SharedLinkCreateDto {
      other.assetIds == assetIds &&
      other.description == description &&
      other.expiresAt == expiresAt &&
+     other.password == password &&
      other.showExif == showExif &&
      other.type == type;
 
@@ -71,11 +75,12 @@ class SharedLinkCreateDto {
     (assetIds.hashCode) +
     (description == null ? 0 : description!.hashCode) +
     (expiresAt == null ? 0 : expiresAt!.hashCode) +
+    (password.hashCode) +
     (showExif.hashCode) +
     (type.hashCode);
 
   @override
-  String toString() => 'SharedLinkCreateDto[albumId=$albumId, allowDownload=$allowDownload, allowUpload=$allowUpload, assetIds=$assetIds, description=$description, expiresAt=$expiresAt, showExif=$showExif, type=$type]';
+  String toString() => 'SharedLinkCreateDto[albumId=$albumId, allowDownload=$allowDownload, allowUpload=$allowUpload, assetIds=$assetIds, description=$description, expiresAt=$expiresAt, password=$password, showExif=$showExif, type=$type]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -97,6 +102,7 @@ class SharedLinkCreateDto {
     } else {
     //  json[r'expiresAt'] = null;
     }
+      json[r'password'] = this.password;
       json[r'showExif'] = this.showExif;
       json[r'type'] = this.type;
     return json;
@@ -118,6 +124,7 @@ class SharedLinkCreateDto {
             : const [],
         description: mapValueOfType<String>(json, r'description'),
         expiresAt: mapDateTime(json, r'expiresAt', ''),
+        password: mapValueOfType<String>(json, r'password') ?? '',
         showExif: mapValueOfType<bool>(json, r'showExif') ?? true,
         type: SharedLinkType.fromJson(json[r'type'])!,
       );

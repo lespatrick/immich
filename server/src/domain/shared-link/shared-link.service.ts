@@ -7,6 +7,7 @@ import { ICryptoRepository } from '../crypto';
 import { SharedLinkResponseDto, mapSharedLink, mapSharedLinkWithNoExif } from './shared-link-response.dto';
 import { SharedLinkCreateDto, SharedLinkEditDto } from './shared-link.dto';
 import { ISharedLinkRepository } from './shared-link.repository';
+import { share } from 'rxjs';
 
 const SALT_ROUNDS = 10;
 

@@ -59,7 +59,7 @@ export class SharedLinkEntity {
   @Column({ type: 'varchar', nullable: true })
   albumId!: string | null;
 
-  @Column({ default: '', select: false })
+  @Column({ default: '' })
   password?: string;
 }
 

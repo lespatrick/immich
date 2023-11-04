@@ -6949,6 +6949,10 @@
             "nullable": true,
             "type": "string"
           },
+          "password": {
+            "default": "",
+            "type": "string"
+          },
           "showExif": {
             "default": true,
             "type": "boolean"
@@ -7020,6 +7024,9 @@
           "key": {
             "type": "string"
           },
+          "passwordProtected": {
+            "type": "boolean"
+          },
           "showExif": {
             "type": "boolean"
           },
@@ -7041,7 +7048,8 @@
           "assets",
           "allowUpload",
           "allowDownload",
-          "showExif"
+          "showExif",
+          "passwordProtected"
         ],
         "type": "object"
       },

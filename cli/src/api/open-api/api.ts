@@ -2646,6 +2646,12 @@ export interface SharedLinkCreateDto {
     'expiresAt'?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof SharedLinkCreateDto
+     */
+    'password'?: string;
+    /**
+     * 
      * @type {boolean}
      * @memberof SharedLinkCreateDto
      */
@@ -2756,6 +2762,12 @@ export interface SharedLinkResponseDto {
      * @memberof SharedLinkResponseDto
      */
     'key': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SharedLinkResponseDto
+     */
+    'passwordProtected': boolean;
     /**
      * 
      * @type {boolean}

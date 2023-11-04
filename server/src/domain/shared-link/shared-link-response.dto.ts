@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import _ from 'lodash';
 import { AlbumResponseDto, mapAlbumWithoutAssets } from '../album';
 import { AssetResponseDto, mapAsset, mapAssetWithoutExif } from '../asset';
+import { share } from 'rxjs';
 
 export class SharedLinkResponseDto {
   id!: string;
@@ -19,6 +20,7 @@ export class SharedLinkResponseDto {
   allowUpload!: boolean;
   allowDownload!: boolean;
   showExif!: boolean;
+  passwordProtected!: boolean;
 }
 
 export function mapSharedLink(sharedLink: SharedLinkEntity): SharedLinkResponseDto {
@@ -26,6 +28,13 @@ export function mapSharedLink(sharedLink: SharedLinkEntity): SharedLinkResponseD
   const albumAssets = (sharedLink?.album?.assets || []).map((asset) => asset);
 
   const assets = _.uniqBy([...linkAssets, ...albumAssets], (asset) => asset.id);
+
+  const passwordProtected = () => {
+    if (sharedLink.password) {
+      return sharedLink.password.length > 0;
+    }
+    return false;
+  };
 
   return {
     id: sharedLink.id,
@@ -40,6 +49,7 @@ export function mapSharedLink(sharedLink: SharedLinkEntity): SharedLinkResponseD
     allowUpload: sharedLink.allowUpload,
     allowDownload: sharedLink.allowDownload,
     showExif: sharedLink.showExif,
+    passwordProtected: passwordProtected()
   };
 }
 
@@ -48,6 +58,13 @@ export function mapSharedLinkWithNoExif(sharedLink: SharedLinkEntity): SharedLin
   const albumAssets = (sharedLink?.album?.assets || []).map((asset) => asset);
 
   const assets = _.uniqBy([...linkAssets, ...albumAssets], (asset) => asset.id);
+
+  const passwordProtected = () => {
+    if (sharedLink.password) {
+      return sharedLink.password.length > 0;
+    }
+    return false;
+  };
 
   return {
     id: sharedLink.id,
@@ -62,5 +79,6 @@ export function mapSharedLinkWithNoExif(sharedLink: SharedLinkEntity): SharedLin
     allowUpload: sharedLink.allowUpload,
     allowDownload: sharedLink.allowDownload,
     showExif: sharedLink.showExif,
+    passwordProtected: passwordProtected()
   };
 }
