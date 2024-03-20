@@ -4,7 +4,7 @@ name: 'immich-test-e2e'
 
 services:
   immich-server:
-    image: immich-server-dev:latest
+    image: immich-server-dev:main
     build:
       context: ../../
       dockerfile: server/Dockerfile

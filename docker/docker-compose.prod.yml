@@ -3,7 +3,7 @@ version: '3.8'
 name: immich-prod
 
 x-server-build: &server-common
-  image: immich-server:latest
+  image: immich-server:main
   build:
     context: ../
     dockerfile: server/Dockerfile
@@ -39,7 +39,7 @@ services:
 
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: immich-machine-learning:latest
+    image: immich-machine-learning:main
     # extends:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference

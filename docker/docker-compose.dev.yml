@@ -7,7 +7,7 @@ version: '3.8'
 name: immich-dev
 
 x-server-build: &server-common
-  image: immich-server-dev:latest
+  image: immich-server-dev:main
   build:
     context: ../
     dockerfile: server/Dockerfile
@@ -54,7 +54,7 @@ services:
 
   immich-web:
     container_name: immich_web
-    image: immich-web-dev:latest
+    image: immich-web-dev:main
     build:
       context: ../web
     command: ['/usr/src/app/bin/immich-web']
@@ -77,7 +77,7 @@ services:
 
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: immich-machine-learning-dev:latest
+    image: immich-machine-learning-dev:main
     # extends:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference

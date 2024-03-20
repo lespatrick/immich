@@ -1,5 +1,5 @@
 # dev build
-FROM ghcr.io/lespatrick/immich-server:latest as dev
+FROM ghcr.io/lespatrick/immich-server:main as dev
 
 RUN apt-get install --no-install-recommends -yqq tini
 WORKDIR /usr/src/app
@@ -40,7 +40,7 @@ RUN npm run build
 
 
 # prod build
-FROM ghcr.io/lespatrick/immich-server:latest
+FROM ghcr.io/lespatrick/immich-server:main
 
 WORKDIR /usr/src/app
 ENV NODE_ENV=production \
