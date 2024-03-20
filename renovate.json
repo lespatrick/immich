@@ -64,7 +64,7 @@
     },
     {
       "groupName": "base-image",
-      "matchPackagePrefixes": ["ghcr.io/immich-app/base-server"],
+      "matchPackagePrefixes": ["ghcr.io/lespatrick/base-server"],
       "minimumReleaseAge": "0"
     },
     {

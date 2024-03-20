@@ -16,7 +16,7 @@ version: '3.8'
 services:
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    image: ghcr.io/lespatrick/immich-machine-learning:${IMMICH_VERSION:-release}
     volumes:
       - model-cache:/cache
     restart: always

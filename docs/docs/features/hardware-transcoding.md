@@ -70,7 +70,7 @@ You can add this to the `immich-microservices` service instead of extending from
 ```yaml
 immich-microservices:
   container_name: immich_microservices
-  image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+  image: ghcr.io/lespatrick/immich-server:${IMMICH_VERSION:-release}
   # Note the lack of an `extends` section
   devices:
     - /dev/dri:/dev/dri

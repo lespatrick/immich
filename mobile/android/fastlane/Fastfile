@@ -19,7 +19,7 @@ platform :android do
   desc "Build Android and Release Testing"
   lane :beta do
     gradle(
-      task: 'bundle', 
+      task: 'bundle',
       build_type: 'Release',
       properties: {
         "android.injected.version.code" => 47,
@@ -32,11 +32,11 @@ platform :android do
   desc "Build and Release Android"
   lane :release do
     gradle(
-      task: 'bundle', 
+      task: 'bundle',
       build_type: 'Release',
       properties: {
         "android.injected.version.code" => 126,
-        "android.injected.version.name" => "1.98.0",
+        "android.injected.version.name" => "1.98.1s",
       }
     )
     upload_to_play_store(skip_upload_apk: true, skip_upload_images: true, skip_upload_screenshots: true, aab: '../build/app/outputs/bundle/release/app-release.aab')
