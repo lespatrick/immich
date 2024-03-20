@@ -37,6 +37,7 @@ import {
   TimeBucketAssetDto,
   TimeBucketDto,
   UpdateAssetDto,
+  UpdateAssetCopiesDto,
   UpdateStackParentDto,
   mapStats,
 } from './dto';
@@ -316,6 +317,15 @@ export class AssetService {
 
     const asset = await this.assetRepository.save({ id, ...rest });
     return mapAsset(asset, { auth });
+  }
+
+  async updateCopies(authUser: AuthDto, id: string, dto: UpdateAssetCopiesDto): Promise<AssetResponseDto> {
+    await this.access.requirePermission(authUser, Permission.ASSET_UPDATE_COPIES, id);
+
+    const { ...rest } = dto;
+
+    const asset = await this.assetRepository.save({ id, ...rest });
+    return mapAsset(asset);
   }
 
   async updateAll(auth: AuthDto, dto: AssetBulkUpdateDto): Promise<void> {

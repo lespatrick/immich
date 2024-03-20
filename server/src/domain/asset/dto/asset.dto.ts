@@ -9,6 +9,7 @@ import {
   IsPositive,
   IsString,
   ValidateIf,
+  IsNumber
 } from 'class-validator';
 import { Optional, ValidateUUID } from '../../domain.util';
 import { BulkIdsDto } from '../response-dto';
@@ -86,6 +87,20 @@ export class UpdateAssetDto {
   @IsLongitude()
   @IsNotEmpty()
   longitude?: number;
+}
+
+export class UpdateAssetCopiesDto {
+  @Optional()
+  @IsNumber()
+  smallCopies?: number;
+
+  @Optional()
+  @IsNumber()
+  mediumCopies?: number;
+
+  @Optional()
+  @IsNumber()
+  largeCopies?: number;
 }
 
 export class RandomAssetsDto {

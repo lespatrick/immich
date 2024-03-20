@@ -30,6 +30,7 @@ Method | HTTP request | Description
 [**serveFile**](AssetApi.md#servefile) | **GET** /asset/file/{id} | 
 [**updateAsset**](AssetApi.md#updateasset) | **PUT** /asset/{id} | 
 [**updateAssets**](AssetApi.md#updateassets) | **PUT** /asset | 
+[**updateCopies**](AssetApi.md#updatecopies) | **PUT** /asset/{id}/copies | 
 [**updateStackParent**](AssetApi.md#updatestackparent) | **PUT** /asset/stack/parent | 
 [**uploadFile**](AssetApi.md#uploadfile) | **POST** /asset/upload | 
 
@@ -1343,6 +1344,65 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateCopies**
+> AssetResponseDto updateCopies(id, updateAssetCopiesDto, key)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: cookie
+//defaultApiClient.getAuthentication<ApiKeyAuth>('cookie').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('cookie').apiKeyPrefix = 'Bearer';
+// TODO Configure API key authorization: api_key
+//defaultApiClient.getAuthentication<ApiKeyAuth>('api_key').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('api_key').apiKeyPrefix = 'Bearer';
+// TODO Configure HTTP Bearer authorization: bearer
+// Case 1. Use String Token
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearer').setAccessToken('YOUR_ACCESS_TOKEN');
+// Case 2. Use Function which generate token.
+// String yourTokenGeneratorFunction() { ... }
+//defaultApiClient.getAuthentication<HttpBearerAuth>('bearer').setAccessToken(yourTokenGeneratorFunction);
+
+final api_instance = AssetApi();
+final id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+final updateAssetCopiesDto = UpdateAssetCopiesDto(); // UpdateAssetCopiesDto | 
+final key = key_example; // String | 
+
+try {
+    final result = api_instance.updateCopies(id, updateAssetCopiesDto, key);
+    print(result);
+} catch (e) {
+    print('Exception when calling AssetApi->updateCopies: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **updateAssetCopiesDto** | [**UpdateAssetCopiesDto**](UpdateAssetCopiesDto.md)|  | 
+ **key** | **String**|  | [optional] 
+
+### Return type
+
+[**AssetResponseDto**](AssetResponseDto.md)
+
+### Authorization
+
+[cookie](../README.md#cookie), [api_key](../README.md#api_key), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -22,6 +22,7 @@ import {
   TrashService,
   UpdateAssetDto as UpdateDto,
   UpdateStackParentDto,
+  UpdateAssetCopiesDto
 } from '@app/domain';
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -131,5 +132,11 @@ export class AssetController {
   @Put(':id')
   updateAsset(@Auth() auth: AuthDto, @Param() { id }: UUIDParamDto, @Body() dto: UpdateDto): Promise<AssetResponseDto> {
     return this.service.update(auth, id, dto);
+  }
+
+  @Authenticated({ isShared: true })
+  @Put(':id/copies')
+  updateCopies(@Auth() authUser: AuthDto, @Param() { id }: UUIDParamDto, @Body() dto: UpdateAssetCopiesDto): Promise<AssetResponseDto> {
+    return this.service.updateCopies(authUser, id, dto);
   }
 }

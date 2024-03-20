@@ -130,6 +130,11 @@ void main() {
       // TODO
     });
 
+    //Future<AssetResponseDto> updateCopies(String id, UpdateAssetCopiesDto updateAssetCopiesDto, { String key }) async
+    test('test updateCopies', () async {
+      // TODO
+    });
+
     //Future updateStackParent(UpdateStackParentDto updateStackParentDto) async
     test('test updateStackParent', () async {
       // TODO

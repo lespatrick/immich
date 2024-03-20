@@ -92,6 +92,11 @@ void main() {
       // TODO
     });
 
+    // num largeCopies
+    test('to test the property `largeCopies`', () async {
+      // TODO
+    });
+
     // String libraryId
     test('to test the property `libraryId`', () async {
       // TODO
@@ -104,6 +109,11 @@ void main() {
 
     // DateTime localDateTime
     test('to test the property `localDateTime`', () async {
+      // TODO
+    });
+
+    // num mediumCopies
+    test('to test the property `mediumCopies`', () async {
       // TODO
     });
 
@@ -134,6 +144,11 @@ void main() {
 
     // bool resized
     test('to test the property `resized`', () async {
+      // TODO
+    });
+
+    // num smallCopies
+    test('to test the property `smallCopies`', () async {
       // TODO
     });
 

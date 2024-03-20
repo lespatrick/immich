@@ -28,15 +28,18 @@ class AssetResponseDto {
     required this.isOffline,
     required this.isReadOnly,
     required this.isTrashed,
+    required this.largeCopies,
     required this.libraryId,
     this.livePhotoVideoId,
     required this.localDateTime,
+    required this.mediumCopies,
     required this.originalFileName,
     required this.originalPath,
     this.owner,
     required this.ownerId,
     this.people = const [],
     required this.resized,
+    required this.smallCopies,
     this.smartInfo,
     this.stack = const [],
     required this.stackCount,
@@ -84,11 +87,15 @@ class AssetResponseDto {
 
   bool isTrashed;
 
+  num largeCopies;
+
   String libraryId;
 
   String? livePhotoVideoId;
 
   DateTime localDateTime;
+
+  num mediumCopies;
 
   String originalFileName;
 
@@ -107,6 +114,8 @@ class AssetResponseDto {
   List<PersonWithFacesResponseDto> people;
 
   bool resized;
+
+  num smallCopies;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -147,15 +156,18 @@ class AssetResponseDto {
     other.isOffline == isOffline &&
     other.isReadOnly == isReadOnly &&
     other.isTrashed == isTrashed &&
+    other.largeCopies == largeCopies &&
     other.libraryId == libraryId &&
     other.livePhotoVideoId == livePhotoVideoId &&
     other.localDateTime == localDateTime &&
+    other.mediumCopies == mediumCopies &&
     other.originalFileName == originalFileName &&
     other.originalPath == originalPath &&
     other.owner == owner &&
     other.ownerId == ownerId &&
     _deepEquality.equals(other.people, people) &&
     other.resized == resized &&
+    other.smallCopies == smallCopies &&
     other.smartInfo == smartInfo &&
     _deepEquality.equals(other.stack, stack) &&
     other.stackCount == stackCount &&
@@ -183,15 +195,18 @@ class AssetResponseDto {
     (isOffline.hashCode) +
     (isReadOnly.hashCode) +
     (isTrashed.hashCode) +
+    (largeCopies.hashCode) +
     (libraryId.hashCode) +
     (livePhotoVideoId == null ? 0 : livePhotoVideoId!.hashCode) +
     (localDateTime.hashCode) +
+    (mediumCopies.hashCode) +
     (originalFileName.hashCode) +
     (originalPath.hashCode) +
     (owner == null ? 0 : owner!.hashCode) +
     (ownerId.hashCode) +
     (people.hashCode) +
     (resized.hashCode) +
+    (smallCopies.hashCode) +
     (smartInfo == null ? 0 : smartInfo!.hashCode) +
     (stack.hashCode) +
     (stackCount == null ? 0 : stackCount!.hashCode) +
@@ -202,7 +217,7 @@ class AssetResponseDto {
     (updatedAt.hashCode);
 
   @override
-  String toString() => 'AssetResponseDto[checksum=$checksum, deviceAssetId=$deviceAssetId, deviceId=$deviceId, duration=$duration, exifInfo=$exifInfo, fileCreatedAt=$fileCreatedAt, fileModifiedAt=$fileModifiedAt, hasMetadata=$hasMetadata, id=$id, isArchived=$isArchived, isExternal=$isExternal, isFavorite=$isFavorite, isOffline=$isOffline, isReadOnly=$isReadOnly, isTrashed=$isTrashed, libraryId=$libraryId, livePhotoVideoId=$livePhotoVideoId, localDateTime=$localDateTime, originalFileName=$originalFileName, originalPath=$originalPath, owner=$owner, ownerId=$ownerId, people=$people, resized=$resized, smartInfo=$smartInfo, stack=$stack, stackCount=$stackCount, stackParentId=$stackParentId, tags=$tags, thumbhash=$thumbhash, type=$type, updatedAt=$updatedAt]';
+  String toString() => 'AssetResponseDto[checksum=$checksum, deviceAssetId=$deviceAssetId, deviceId=$deviceId, duration=$duration, exifInfo=$exifInfo, fileCreatedAt=$fileCreatedAt, fileModifiedAt=$fileModifiedAt, hasMetadata=$hasMetadata, id=$id, isArchived=$isArchived, isExternal=$isExternal, isFavorite=$isFavorite, isOffline=$isOffline, isReadOnly=$isReadOnly, isTrashed=$isTrashed, largeCopies=$largeCopies, libraryId=$libraryId, livePhotoVideoId=$livePhotoVideoId, localDateTime=$localDateTime, mediumCopies=$mediumCopies, originalFileName=$originalFileName, originalPath=$originalPath, owner=$owner, ownerId=$ownerId, people=$people, resized=$resized, smallCopies=$smallCopies, smartInfo=$smartInfo, stack=$stack, stackCount=$stackCount, stackParentId=$stackParentId, tags=$tags, thumbhash=$thumbhash, type=$type, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -225,6 +240,7 @@ class AssetResponseDto {
       json[r'isOffline'] = this.isOffline;
       json[r'isReadOnly'] = this.isReadOnly;
       json[r'isTrashed'] = this.isTrashed;
+      json[r'largeCopies'] = this.largeCopies;
       json[r'libraryId'] = this.libraryId;
     if (this.livePhotoVideoId != null) {
       json[r'livePhotoVideoId'] = this.livePhotoVideoId;
@@ -232,6 +248,7 @@ class AssetResponseDto {
     //  json[r'livePhotoVideoId'] = null;
     }
       json[r'localDateTime'] = this.localDateTime.toUtc().toIso8601String();
+      json[r'mediumCopies'] = this.mediumCopies;
       json[r'originalFileName'] = this.originalFileName;
       json[r'originalPath'] = this.originalPath;
     if (this.owner != null) {
@@ -242,6 +259,7 @@ class AssetResponseDto {
       json[r'ownerId'] = this.ownerId;
       json[r'people'] = this.people;
       json[r'resized'] = this.resized;
+      json[r'smallCopies'] = this.smallCopies;
     if (this.smartInfo != null) {
       json[r'smartInfo'] = this.smartInfo;
     } else {
@@ -292,15 +310,18 @@ class AssetResponseDto {
         isOffline: mapValueOfType<bool>(json, r'isOffline')!,
         isReadOnly: mapValueOfType<bool>(json, r'isReadOnly')!,
         isTrashed: mapValueOfType<bool>(json, r'isTrashed')!,
+        largeCopies: num.parse('${json[r'largeCopies']}'),
         libraryId: mapValueOfType<String>(json, r'libraryId')!,
         livePhotoVideoId: mapValueOfType<String>(json, r'livePhotoVideoId'),
         localDateTime: mapDateTime(json, r'localDateTime', r'')!,
+        mediumCopies: num.parse('${json[r'mediumCopies']}'),
         originalFileName: mapValueOfType<String>(json, r'originalFileName')!,
         originalPath: mapValueOfType<String>(json, r'originalPath')!,
         owner: UserResponseDto.fromJson(json[r'owner']),
         ownerId: mapValueOfType<String>(json, r'ownerId')!,
         people: PersonWithFacesResponseDto.listFromJson(json[r'people']),
         resized: mapValueOfType<bool>(json, r'resized')!,
+        smallCopies: num.parse('${json[r'smallCopies']}'),
         smartInfo: SmartInfoResponseDto.fromJson(json[r'smartInfo']),
         stack: AssetResponseDto.listFromJson(json[r'stack']),
         stackCount: mapValueOfType<int>(json, r'stackCount'),
@@ -370,12 +391,15 @@ class AssetResponseDto {
     'isOffline',
     'isReadOnly',
     'isTrashed',
+    'largeCopies',
     'libraryId',
     'localDateTime',
+    'mediumCopies',
     'originalFileName',
     'originalPath',
     'ownerId',
     'resized',
+    'smallCopies',
     'stackCount',
     'thumbhash',
     'type',

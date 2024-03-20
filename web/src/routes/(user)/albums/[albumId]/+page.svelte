@@ -61,6 +61,7 @@
   } from '@immich/sdk';
   import {
     mdiArrowLeft,
+    mdiCloudPrintOutline,
     mdiDeleteOutline,
     mdiDotsVertical,
     mdiFileImagePlusOutline,
@@ -74,6 +75,7 @@
   import AlbumTitle from '$lib/components/album-page/album-title.svelte';
   import AlbumDescription from '$lib/components/album-page/album-description.svelte';
   import { handlePromiseError } from '$lib/utils';
+  import PrintoutsInfoModal from '$lib/components/album-page/printouts-info-modal.svelte';
 
   export let data: PageData;
 
@@ -96,6 +98,7 @@
     SELECT_THUMBNAIL = 'select-thumbnail',
     SELECT_ASSETS = 'select-assets',
     ALBUM_OPTIONS = 'album-options',
+    SHOW_PRINTOUTS = 'show-printouts',
     VIEW_USERS = 'view-users',
     VIEW = 'view',
     OPTIONS = 'options',
@@ -459,6 +462,11 @@
                 on:click={() => (viewMode = ViewMode.CONFIRM_DELETE)}
                 icon={mdiDeleteOutline}
               />
+              <CircleIconButton
+                title="Show printouts"
+                on:click={() => (viewMode = ViewMode.SHOW_PRINTOUTS)}
+                icon={mdiCloudPrintOutline}
+              />
             {/if}
 
             {#if album.assetCount > 0}
@@ -685,6 +693,13 @@
     on:close={() => (viewMode = ViewMode.VIEW)}
     {album}
     on:remove={({ detail: userId }) => handleRemoveUser(userId)}
+  />
+{/if}
+
+{#if viewMode === ViewMode.SHOW_PRINTOUTS}
+  <PrintoutsInfoModal
+    on:close={() => (viewMode = ViewMode.VIEW)}
+    {album}
   />
 {/if}
 

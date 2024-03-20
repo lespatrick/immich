@@ -7,7 +7,7 @@
   import { featureFlags } from '$lib/stores/server-config.store';
   import { user } from '$lib/stores/user.store';
   import { websocketEvents } from '$lib/stores/websocket';
-  import { getAssetThumbnailUrl, getPeopleThumbnailUrl, isSharedLink, handlePromiseError } from '$lib/utils';
+  import { getAssetThumbnailUrl, getPeopleThumbnailUrl, isSharedLink, handlePromiseError, getKey } from '$lib/utils';
   import { delay } from '$lib/utils/asset-utils';
   import { autoGrowHeight } from '$lib/utils/autogrow';
   import { clickOutside } from '$lib/utils/click-outside';
@@ -15,6 +15,7 @@
     ThumbnailFormat,
     getAssetInfo,
     updateAsset,
+    updateCopies,
     type AlbumResponseDto,
     type AssetResponseDto,
   } from '@immich/sdk';
@@ -52,6 +53,9 @@
   let originalDescription: string;
   let showEditFaces = false;
   let previousId: string;
+  let copyCounterSmall: number = 0;
+  let copyCounterMedium: number = 0;
+  let copyCounterLarge: number = 0;
 
   $: {
     if (!previousId) {
@@ -61,6 +65,10 @@
       showEditFaces = false;
       previousId = asset.id;
     }
+
+    copyCounterSmall = asset.smallCopies;
+    copyCounterMedium = asset.mediumCopies;
+    copyCounterLarge = asset.largeCopies;
   }
 
   $: isOwner = $user?.id === asset.ownerId;
@@ -74,6 +82,9 @@
       people = data?.people || [];
 
       description = data.exifInfo?.description || '';
+      copyCounterSmall = data.smallCopies;
+      copyCounterMedium = data.mediumCopies;
+      copyCounterLarge = data.largeCopies;
     }
     originalDescription = description;
   };
@@ -151,6 +162,22 @@
       });
     } catch (error) {
       handleError(error, 'Cannot update the description');
+    }
+  };
+
+  const handleSaveCopies = async () => {
+    try {
+      await updateCopies({
+        id: asset.id,
+        updateAssetCopiesDto: {
+          smallCopies: copyCounterSmall,
+          mediumCopies: copyCounterMedium,
+          largeCopies: copyCounterLarge
+        },
+        key: getKey()
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -319,6 +346,95 @@
       </div>
     </section>
   {/if}
+
+  <div class="px-4 py-4">
+    <p class="text-sm">PRINTOUTS</p>
+    <!-- <select name="Printout size" id="printout_size_select" style="background-color: black; width: 100%;">
+      <option value="none">None</option>
+      <option value="P10x15">10x15</option>
+      <option value="P15x21">15x21</option>
+    </select> -->
+
+    <div style="display: flex; align-items: center;">
+      10x15
+      <button
+        class="flex place-content-center place-items-center rounded-full p-3 transition-colors hover:bg-gray-200 dark:text-immich-dark-fg dark:hover:bg-gray-900"
+        on:click={() => {
+          if (copyCounterSmall > 0) {
+            copyCounterSmall--
+          }
+        }}
+      >
+        -
+      </button>
+        <p id="copy_counter">{copyCounterSmall}</p>
+      <button
+        class="flex place-content-center place-items-center rounded-full p-3 transition-colors hover:bg-gray-200 dark:text-immich-dark-fg dark:hover:bg-gray-900"
+        on:click={() => copyCounterSmall++}
+      >
+        +
+      </button>
+    </div>
+    <div style="display: flex; align-items: center;">
+      15x21
+      <button
+        class="flex place-content-center place-items-center rounded-full p-3 transition-colors hover:bg-gray-200 dark:text-immich-dark-fg dark:hover:bg-gray-900"
+        on:click={() => {
+          if (copyCounterMedium > 0) {
+            copyCounterMedium--
+          }
+        }}
+      >
+        -
+      </button>
+        <p id="copy_counter">{copyCounterMedium}</p>
+      <button
+        class="flex place-content-center place-items-center rounded-full p-3 transition-colors hover:bg-gray-200 dark:text-immich-dark-fg dark:hover:bg-gray-900"
+        on:click={() => copyCounterMedium++}
+      >
+        +
+      </button>
+    </div>
+    <div style="display: flex; align-items: center;">
+      21x30
+      <button
+        class="flex place-content-center place-items-center rounded-full p-3 transition-colors hover:bg-gray-200 dark:text-immich-dark-fg dark:hover:bg-gray-900"
+        on:click={() => {
+          if (copyCounterLarge > 0) {
+            copyCounterLarge--
+          }
+        }}
+      >
+        -
+      </button>
+        <p id="copy_counter">{copyCounterLarge}</p>
+      <button
+        class="flex place-content-center place-items-center rounded-full p-3 transition-colors hover:bg-gray-200 dark:text-immich-dark-fg dark:hover:bg-gray-900"
+        on:click={() => copyCounterLarge++}
+      >
+        +
+      </button>
+    </div>
+
+    <div style="display: flex; align-items: center;">
+      <button
+        class="flex place-content-center place-items-center rounded-full p-3 transition-colors hover:bg-gray-200 dark:text-immich-dark-fg dark:hover:bg-gray-900"
+        on:click={() => handleSaveCopies()}
+      >
+        Save
+      </button>
+      <button
+        class="flex place-content-center place-items-center rounded-full p-3 transition-colors hover:bg-gray-200 dark:text-immich-dark-fg dark:hover:bg-gray-900"
+        on:click={() => {
+          copyCounterSmall = 0;
+          copyCounterMedium = 0;
+          copyCounterLarge = 0;
+        }}        
+      >
+        Clear
+      </button>
+    </div>
+  </div>
 
   <div class="px-4 py-4">
     {#if !asset.exifInfo && !asset.isExternal}

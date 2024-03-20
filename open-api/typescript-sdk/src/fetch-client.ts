@@ -122,15 +122,18 @@ export type AssetResponseDto = {
     isOffline: boolean;
     isReadOnly: boolean;
     isTrashed: boolean;
+    largeCopies: number;
     libraryId: string;
     livePhotoVideoId?: string | null;
     localDateTime: string;
+    mediumCopies: number;
     originalFileName: string;
     originalPath: string;
     owner?: UserResponseDto;
     ownerId: string;
     people?: PersonWithFacesResponseDto[];
     resized: boolean;
+    smallCopies: number;
     smartInfo?: SmartInfoResponseDto;
     stack?: AssetResponseDto[];
     stackCount: number | null;
@@ -311,6 +314,11 @@ export type UpdateAssetDto = {
     isFavorite?: boolean;
     latitude?: number;
     longitude?: number;
+};
+export type UpdateAssetCopiesDto = {
+    largeCopies?: number;
+    mediumCopies?: number;
+    smallCopies?: number;
 };
 export type AuditDeletesResponseDto = {
     ids: string[];
@@ -1540,6 +1548,22 @@ export function updateAsset({ id, updateAssetDto }: {
         ...opts,
         method: "PUT",
         body: updateAssetDto
+    })));
+}
+export function updateCopies({ id, key, updateAssetCopiesDto }: {
+    id: string;
+    key?: string;
+    updateAssetCopiesDto: UpdateAssetCopiesDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: AssetResponseDto;
+    }>(`/asset/${encodeURIComponent(id)}/copies${QS.query(QS.explode({
+        key
+    }))}`, oazapfts.json({
+        ...opts,
+        method: "PUT",
+        body: updateAssetCopiesDto
     })));
 }
 export function searchAssets({ checksum, city, country, createdAfter, createdBefore, deviceAssetId, deviceId, encodedVideoPath, id, isArchived, isEncoded, isExternal, isFavorite, isMotion, isNotInAlbum, isOffline, isReadOnly, isVisible, lensModel, libraryId, make, model, order, originalFileName, originalPath, page, personIds, resizePath, size, state, takenAfter, takenBefore, trashedAfter, trashedBefore, $type, updatedAfter, updatedBefore, webpPath, withArchived, withDeleted, withExif, withPeople, withStacked }: {

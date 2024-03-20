@@ -2136,6 +2136,75 @@
         ]
       }
     },
+    "/asset/{id}/copies": {
+      "put": {
+        "operationId": "updateCopies",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "key",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAssetCopiesDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          },
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Asset"
+        ]
+      }
+    },
     "/assets": {
       "get": {
         "deprecated": true,
@@ -7176,6 +7245,9 @@
           "isTrashed": {
             "type": "boolean"
           },
+          "largeCopies": {
+            "type": "number"
+          },
           "libraryId": {
             "type": "string"
           },
@@ -7186,6 +7258,9 @@
           "localDateTime": {
             "format": "date-time",
             "type": "string"
+          },
+          "mediumCopies": {
+            "type": "number"
           },
           "originalFileName": {
             "type": "string"
@@ -7207,6 +7282,9 @@
           },
           "resized": {
             "type": "boolean"
+          },
+          "smallCopies": {
+            "type": "number"
           },
           "smartInfo": {
             "$ref": "#/components/schemas/SmartInfoResponseDto"
@@ -7258,12 +7336,15 @@
           "isOffline",
           "isReadOnly",
           "isTrashed",
+          "largeCopies",
           "libraryId",
           "localDateTime",
+          "mediumCopies",
           "originalFileName",
           "originalPath",
           "ownerId",
           "resized",
+          "smallCopies",
           "stackCount",
           "thumbhash",
           "type",
@@ -10284,6 +10365,20 @@
           },
           "isActivityEnabled": {
             "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "UpdateAssetCopiesDto": {
+        "properties": {
+          "largeCopies": {
+            "type": "number"
+          },
+          "mediumCopies": {
+            "type": "number"
+          },
+          "smallCopies": {
+            "type": "number"
           }
         },
         "type": "object"

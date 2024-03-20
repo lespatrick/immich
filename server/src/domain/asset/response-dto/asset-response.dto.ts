@@ -46,6 +46,9 @@ export class AssetResponseDto extends SanitizedAssetResponseDto {
   stack?: AssetResponseDto[];
   @ApiProperty({ type: 'integer' })
   stackCount!: number | null;
+  smallCopies!: number;
+  mediumCopies!: number;
+  largeCopies!: number;
 }
 
 export type AssetMapOptions = {
@@ -126,6 +129,9 @@ export function mapAsset(entity: AssetEntity, options: AssetMapOptions = {}): As
     isOffline: entity.isOffline,
     isReadOnly: entity.isReadOnly,
     hasMetadata: true,
+    smallCopies: entity.smallCopies,
+    mediumCopies: entity.mediumCopies,
+    largeCopies: entity.largeCopies
   };
 }
 

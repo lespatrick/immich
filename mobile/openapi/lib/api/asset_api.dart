@@ -1618,6 +1618,66 @@ class AssetApi {
     }
   }
 
+  /// Performs an HTTP 'PUT /asset/{id}/copies' operation and returns the [Response].
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///
+  /// * [UpdateAssetCopiesDto] updateAssetCopiesDto (required):
+  ///
+  /// * [String] key:
+  Future<Response> updateCopiesWithHttpInfo(String id, UpdateAssetCopiesDto updateAssetCopiesDto, { String? key, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/asset/{id}/copies'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody = updateAssetCopiesDto;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (key != null) {
+      queryParams.addAll(_queryParams('', 'key', key));
+    }
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///
+  /// * [UpdateAssetCopiesDto] updateAssetCopiesDto (required):
+  ///
+  /// * [String] key:
+  Future<AssetResponseDto?> updateCopies(String id, UpdateAssetCopiesDto updateAssetCopiesDto, { String? key, }) async {
+    final response = await updateCopiesWithHttpInfo(id, updateAssetCopiesDto,  key: key, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AssetResponseDto',) as AssetResponseDto;
+    
+    }
+    return null;
+  }
+
   /// Performs an HTTP 'PUT /asset/stack/parent' operation and returns the [Response].
   /// Parameters:
   ///

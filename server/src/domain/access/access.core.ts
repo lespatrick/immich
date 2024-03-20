@@ -21,6 +21,7 @@ export enum Permission {
   // ALBUM_CREATE = 'album.create',
   ALBUM_READ = 'album.read',
   ALBUM_UPDATE = 'album.update',
+  ASSET_UPDATE_COPIES = 'asset.updateCopies',
   ALBUM_DELETE = 'album.delete',
   ALBUM_REMOVE_ASSET = 'album.removeAsset',
   ALBUM_SHARE = 'album.share',
@@ -123,6 +124,15 @@ export class AccessCore {
 
       case Permission.ASSET_UPLOAD: {
         return sharedLink.allowUpload ? ids : new Set();
+      }
+
+      case Permission.ASSET_UPDATE_COPIES: {
+        return await this.repository.asset.checkSharedLinkAccess(sharedLinkId, ids);
+        // return (
+        //   (await this.repository.asset.checkOwnerAccess(sharedLink.userId, ids)) ||
+        //   (await this.repository.asset.checkAlbumAccess(sharedLink.userId, ids)) ||
+        //   (await this.repository.asset.checkPartnerAccess(sharedLink.userId, ids))
+        // );
       }
 
       case Permission.ASSET_SHARE: {

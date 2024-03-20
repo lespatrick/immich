@@ -167,6 +167,15 @@ export class AssetEntity {
 
   @OneToOne(() => AssetJobStatusEntity, (jobStatus) => jobStatus.asset, { nullable: true })
   jobStatus?: AssetJobStatusEntity;
+
+  @Column({default: 0})
+  smallCopies!: number;
+
+  @Column({default: 0})
+  mediumCopies!: number;
+
+  @Column({default: 0})
+  largeCopies!: number;
 }
 
 export enum AssetType {
