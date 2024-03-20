@@ -10,7 +10,7 @@
   import { SlideshowNavigation, SlideshowState, slideshowStore } from '$lib/stores/slideshow.store';
   import { stackAssetsStore } from '$lib/stores/stacked-asset.store';
   import { user } from '$lib/stores/user.store';
-  import { getAssetJobMessage, isSharedLink, handlePromiseError } from '$lib/utils';
+  import { getAssetJobMessage, isSharedLink, handlePromiseError, getKey } from '$lib/utils';
   import { addAssetsToAlbum, downloadFile } from '$lib/utils/asset-utils';
   import { handleError } from '$lib/utils/handle-error';
   import { shouldIgnoreShortcut } from '$lib/utils/shortcut';
@@ -33,6 +33,7 @@
     type AlbumResponseDto,
     type AssetResponseDto,
     type SharedLinkResponseDto,
+    updateIsFavourite,
   } from '@immich/sdk';
   import { mdiChevronLeft, mdiChevronRight, mdiImageBrokenVariant } from '@mdi/js';
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
@@ -413,11 +414,12 @@
 
   const toggleFavorite = async () => {
     try {
-      const data = await updateAsset({
+      const data = await updateIsFavourite({
         id: asset.id,
         updateAssetDto: {
           isFavorite: !asset.isFavorite,
         },
+        key: getKey()
       });
 
       asset.isFavorite = data.isFavorite;

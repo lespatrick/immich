@@ -328,6 +328,15 @@ export class AssetService {
     return mapAsset(asset);
   }
 
+  async updateFavourite(authUser: AuthDto, id: string, dto: UpdateAssetDto): Promise<AssetResponseDto> {
+    await this.access.requirePermission(authUser, Permission.ASSET_UPDATE_FAVOURITE, id);
+
+    const { isFavorite } = dto;
+
+    const asset = await this.assetRepository.save({ id, isFavorite });
+    return mapAsset(asset);
+  }
+
   async updateAll(auth: AuthDto, dto: AssetBulkUpdateDto): Promise<void> {
     const { ids, removeParent, dateTimeOriginal, latitude, longitude, ...options } = dto;
     await this.access.requirePermission(auth, Permission.ASSET_UPDATE, ids);

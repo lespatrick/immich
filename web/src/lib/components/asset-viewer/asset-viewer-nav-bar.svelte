@@ -155,14 +155,12 @@
         title="Info"
       />
     {/if}
-    {#if isOwner}
-      <CircleIconButton
-        isOpacity={true}
-        icon={asset.isFavorite ? mdiHeart : mdiHeartOutline}
-        on:click={() => dispatch('favorite')}
-        title={asset.isFavorite ? 'Unfavorite' : 'Favorite'}
-      />
-    {/if}
+    <CircleIconButton
+      isOpacity={true}
+      icon={asset.isFavorite ? mdiHeart : mdiHeartOutline}
+      on:click={() => dispatch('favorite')}
+      title={asset.isFavorite ? 'Unfavorite' : 'Favorite'}
+    />
 
     {#if isOwner}
       {#if !asset.isReadOnly || !asset.isExternal}

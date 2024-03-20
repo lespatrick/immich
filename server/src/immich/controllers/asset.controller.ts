@@ -139,4 +139,11 @@ export class AssetController {
   updateCopies(@Auth() authUser: AuthDto, @Param() { id }: UUIDParamDto, @Body() dto: UpdateAssetCopiesDto): Promise<AssetResponseDto> {
     return this.service.updateCopies(authUser, id, dto);
   }
+
+  @Authenticated({ isShared: true })
+  @Put(':id/isfavourite')
+  updateFavourite(@Auth() authUser: AuthDto, @Param() { id }: UUIDParamDto, @Body() dto: UpdateDto): Promise<AssetResponseDto> {
+    return this.service.updateFavourite(authUser, id, dto);
+  }
+  
 }

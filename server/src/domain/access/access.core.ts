@@ -22,6 +22,7 @@ export enum Permission {
   ALBUM_READ = 'album.read',
   ALBUM_UPDATE = 'album.update',
   ASSET_UPDATE_COPIES = 'asset.updateCopies',
+  ASSET_UPDATE_FAVOURITE = 'asset.updateFavourite',
   ALBUM_DELETE = 'album.delete',
   ALBUM_REMOVE_ASSET = 'album.removeAsset',
   ALBUM_SHARE = 'album.share',
@@ -128,11 +129,10 @@ export class AccessCore {
 
       case Permission.ASSET_UPDATE_COPIES: {
         return await this.repository.asset.checkSharedLinkAccess(sharedLinkId, ids);
-        // return (
-        //   (await this.repository.asset.checkOwnerAccess(sharedLink.userId, ids)) ||
-        //   (await this.repository.asset.checkAlbumAccess(sharedLink.userId, ids)) ||
-        //   (await this.repository.asset.checkPartnerAccess(sharedLink.userId, ids))
-        // );
+      }
+
+      case Permission.ASSET_UPDATE_FAVOURITE: {
+        return await this.repository.asset.checkSharedLinkAccess(sharedLinkId, ids);
       }
 
       case Permission.ASSET_SHARE: {

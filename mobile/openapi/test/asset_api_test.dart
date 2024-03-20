@@ -135,6 +135,11 @@ void main() {
       // TODO
     });
 
+    //Future<AssetResponseDto> updateIsFavourite(String id, UpdateAssetDto updateAssetDto, { String key }) async
+    test('test updateIsFavourite', () async {
+      // TODO
+    });
+
     //Future updateStackParent(UpdateStackParentDto updateStackParentDto) async
     test('test updateStackParent', () async {
       // TODO
